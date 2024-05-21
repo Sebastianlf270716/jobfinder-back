@@ -1,0 +1,790 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="jobfinderModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Administrador">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_perfil" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Curriculum">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="perfil" Type="varchar" MaxLength="250" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Empleador">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ciudad" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="descripcion" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="actividad" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="id_perfil" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Estudio">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="institucion" Type="varchar" MaxLength="80" Nullable="false" />
+          <Property Name="anio" Type="int" Nullable="false" />
+          <Property Name="titulo" Type="varchar" MaxLength="80" Nullable="false" />
+          <Property Name="curriculum_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Experiencia">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="empresa" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="anios" Type="int" Nullable="false" />
+          <Property Name="cargo" Type="varchar" MaxLength="80" Nullable="false" />
+          <Property Name="curriculum_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Funcion">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="descripcion" Type="varchar" MaxLength="150" Nullable="false" />
+          <Property Name="oferta_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Gestion">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="empleador_id" Type="int" Nullable="false" />
+          <Property Name="administrador_id" Type="int" Nullable="false" />
+          <Property Name="oferta_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Oferta">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="80" Nullable="false" />
+          <Property Name="cargo" Type="varchar" MaxLength="80" Nullable="false" />
+          <Property Name="anios_experiencia" Type="int" Nullable="false" />
+          <Property Name="salario" Type="money" Nullable="false" />
+          <Property Name="ciudad" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="numero_visualizaciones" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Perfil">
+          <Key>
+            <PropertyRef Name="id_perfil" />
+          </Key>
+          <Property Name="id_perfil" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="80" Nullable="false" />
+          <Property Name="email" Type="varchar" MaxLength="80" Nullable="false" />
+          <Property Name="contrasenia" Type="varchar" MaxLength="200" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Usuario">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="telefono" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="ciudad" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="genero" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="id_perfil" Type="int" Nullable="false" />
+          <Property Name="curriculum_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Usuario_Oferta">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="usuario_id" Type="int" Nullable="false" />
+          <Property Name="oferta_id" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="fk_administrador_perfil1">
+          <End Role="Perfil" Type="Self.Perfil" Multiplicity="1" />
+          <End Role="Administrador" Type="Self.Administrador" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Perfil">
+              <PropertyRef Name="id_perfil" />
+            </Principal>
+            <Dependent Role="Administrador">
+              <PropertyRef Name="id_perfil" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_empleador_perfil1">
+          <End Role="Perfil" Type="Self.Perfil" Multiplicity="1" />
+          <End Role="Empleador" Type="Self.Empleador" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Perfil">
+              <PropertyRef Name="id_perfil" />
+            </Principal>
+            <Dependent Role="Empleador">
+              <PropertyRef Name="id_perfil" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_estudio_curriculum1">
+          <End Role="Curriculum" Type="Self.Curriculum" Multiplicity="1" />
+          <End Role="Estudio" Type="Self.Estudio" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Curriculum">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Estudio">
+              <PropertyRef Name="curriculum_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_experiencia_curriculum1">
+          <End Role="Curriculum" Type="Self.Curriculum" Multiplicity="1" />
+          <End Role="Experiencia" Type="Self.Experiencia" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Curriculum">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Experiencia">
+              <PropertyRef Name="curriculum_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_funcion_oferta1">
+          <End Role="Oferta" Type="Self.Oferta" Multiplicity="1" />
+          <End Role="Funcion" Type="Self.Funcion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Oferta">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Funcion">
+              <PropertyRef Name="oferta_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_gestion_administrador1">
+          <End Role="Administrador" Type="Self.Administrador" Multiplicity="1" />
+          <End Role="Gestion" Type="Self.Gestion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Administrador">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Gestion">
+              <PropertyRef Name="administrador_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_gestion_empleador1">
+          <End Role="Empleador" Type="Self.Empleador" Multiplicity="1" />
+          <End Role="Gestion" Type="Self.Gestion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empleador">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Gestion">
+              <PropertyRef Name="empleador_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_gestion_oferta1">
+          <End Role="Oferta" Type="Self.Oferta" Multiplicity="1" />
+          <End Role="Gestion" Type="Self.Gestion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Oferta">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Gestion">
+              <PropertyRef Name="oferta_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_usuario_curriculum1">
+          <End Role="Curriculum" Type="Self.Curriculum" Multiplicity="1" />
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Curriculum">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Usuario">
+              <PropertyRef Name="curriculum_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_usuario_oferta_oferta1">
+          <End Role="Oferta" Type="Self.Oferta" Multiplicity="1" />
+          <End Role="Usuario_Oferta" Type="Self.Usuario_Oferta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Oferta">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Usuario_Oferta">
+              <PropertyRef Name="oferta_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_usuario_oferta_usuario1">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+          <End Role="Usuario_Oferta" Type="Self.Usuario_Oferta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Usuario_Oferta">
+              <PropertyRef Name="usuario_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_usuario_perfil1">
+          <End Role="Perfil" Type="Self.Perfil" Multiplicity="1" />
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Perfil">
+              <PropertyRef Name="id_perfil" />
+            </Principal>
+            <Dependent Role="Usuario">
+              <PropertyRef Name="id_perfil" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="jobfinderModelStoreContainer">
+          <EntitySet Name="Administrador" EntityType="Self.Administrador" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Curriculum" EntityType="Self.Curriculum" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Empleador" EntityType="Self.Empleador" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Estudio" EntityType="Self.Estudio" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Experiencia" EntityType="Self.Experiencia" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Funcion" EntityType="Self.Funcion" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Gestion" EntityType="Self.Gestion" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Oferta" EntityType="Self.Oferta" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Perfil" EntityType="Self.Perfil" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Usuario" EntityType="Self.Usuario" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Usuario_Oferta" EntityType="Self.Usuario_Oferta" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="fk_administrador_perfil1" Association="Self.fk_administrador_perfil1">
+            <End Role="Perfil" EntitySet="Perfil" />
+            <End Role="Administrador" EntitySet="Administrador" />
+          </AssociationSet>
+          <AssociationSet Name="fk_empleador_perfil1" Association="Self.fk_empleador_perfil1">
+            <End Role="Perfil" EntitySet="Perfil" />
+            <End Role="Empleador" EntitySet="Empleador" />
+          </AssociationSet>
+          <AssociationSet Name="fk_estudio_curriculum1" Association="Self.fk_estudio_curriculum1">
+            <End Role="Curriculum" EntitySet="Curriculum" />
+            <End Role="Estudio" EntitySet="Estudio" />
+          </AssociationSet>
+          <AssociationSet Name="fk_experiencia_curriculum1" Association="Self.fk_experiencia_curriculum1">
+            <End Role="Curriculum" EntitySet="Curriculum" />
+            <End Role="Experiencia" EntitySet="Experiencia" />
+          </AssociationSet>
+          <AssociationSet Name="fk_funcion_oferta1" Association="Self.fk_funcion_oferta1">
+            <End Role="Oferta" EntitySet="Oferta" />
+            <End Role="Funcion" EntitySet="Funcion" />
+          </AssociationSet>
+          <AssociationSet Name="fk_gestion_administrador1" Association="Self.fk_gestion_administrador1">
+            <End Role="Administrador" EntitySet="Administrador" />
+            <End Role="Gestion" EntitySet="Gestion" />
+          </AssociationSet>
+          <AssociationSet Name="fk_gestion_empleador1" Association="Self.fk_gestion_empleador1">
+            <End Role="Empleador" EntitySet="Empleador" />
+            <End Role="Gestion" EntitySet="Gestion" />
+          </AssociationSet>
+          <AssociationSet Name="fk_gestion_oferta1" Association="Self.fk_gestion_oferta1">
+            <End Role="Oferta" EntitySet="Oferta" />
+            <End Role="Gestion" EntitySet="Gestion" />
+          </AssociationSet>
+          <AssociationSet Name="fk_usuario_curriculum1" Association="Self.fk_usuario_curriculum1">
+            <End Role="Curriculum" EntitySet="Curriculum" />
+            <End Role="Usuario" EntitySet="Usuario" />
+          </AssociationSet>
+          <AssociationSet Name="fk_usuario_oferta_oferta1" Association="Self.fk_usuario_oferta_oferta1">
+            <End Role="Oferta" EntitySet="Oferta" />
+            <End Role="Usuario_Oferta" EntitySet="Usuario_Oferta" />
+          </AssociationSet>
+          <AssociationSet Name="fk_usuario_oferta_usuario1" Association="Self.fk_usuario_oferta_usuario1">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Usuario_Oferta" EntitySet="Usuario_Oferta" />
+          </AssociationSet>
+          <AssociationSet Name="fk_usuario_perfil1" Association="Self.fk_usuario_perfil1">
+            <End Role="Perfil" EntitySet="Perfil" />
+            <End Role="Usuario" EntitySet="Usuario" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="jobfinderModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Administrador">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_perfil" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Perfil" Relationship="Self.fk_administrador_perfil1" FromRole="Administrador" ToRole="Perfil" />
+          <NavigationProperty Name="Gestions" Relationship="Self.fk_gestion_administrador1" FromRole="Administrador" ToRole="Gestion" />
+        </EntityType>
+        <EntityType Name="Curriculum">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="perfil" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Estudios" Relationship="Self.fk_estudio_curriculum1" FromRole="Curriculum" ToRole="Estudio" />
+          <NavigationProperty Name="Experiencias" Relationship="Self.fk_experiencia_curriculum1" FromRole="Curriculum" ToRole="Experiencia" />
+          <NavigationProperty Name="Usuarios" Relationship="Self.fk_usuario_curriculum1" FromRole="Curriculum" ToRole="Usuario" />
+        </EntityType>
+        <EntityType Name="Empleador">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ciudad" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="descripcion" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="actividad" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="id_perfil" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Perfil" Relationship="Self.fk_empleador_perfil1" FromRole="Empleador" ToRole="Perfil" />
+          <NavigationProperty Name="Gestions" Relationship="Self.fk_gestion_empleador1" FromRole="Empleador" ToRole="Gestion" />
+        </EntityType>
+        <EntityType Name="Estudio">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="institucion" Type="String" MaxLength="80" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="anio" Type="Int32" Nullable="false" />
+          <Property Name="titulo" Type="String" MaxLength="80" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="curriculum_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Curriculum" Relationship="Self.fk_estudio_curriculum1" FromRole="Estudio" ToRole="Curriculum" />
+        </EntityType>
+        <EntityType Name="Experiencia">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="empresa" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="anios" Type="Int32" Nullable="false" />
+          <Property Name="cargo" Type="String" MaxLength="80" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="curriculum_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Curriculum" Relationship="Self.fk_experiencia_curriculum1" FromRole="Experiencia" ToRole="Curriculum" />
+        </EntityType>
+        <EntityType Name="Funcion">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="descripcion" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="oferta_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Oferta" Relationship="Self.fk_funcion_oferta1" FromRole="Funcion" ToRole="Oferta" />
+        </EntityType>
+        <EntityType Name="Gestion">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="empleador_id" Type="Int32" Nullable="false" />
+          <Property Name="administrador_id" Type="Int32" Nullable="false" />
+          <Property Name="oferta_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Administrador" Relationship="Self.fk_gestion_administrador1" FromRole="Gestion" ToRole="Administrador" />
+          <NavigationProperty Name="Empleador" Relationship="Self.fk_gestion_empleador1" FromRole="Gestion" ToRole="Empleador" />
+          <NavigationProperty Name="Oferta" Relationship="Self.fk_gestion_oferta1" FromRole="Gestion" ToRole="Oferta" />
+        </EntityType>
+        <EntityType Name="Oferta">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre" Type="String" MaxLength="80" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="cargo" Type="String" MaxLength="80" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="anios_experiencia" Type="Int32" Nullable="false" />
+          <Property Name="salario" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="ciudad" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="numero_visualizaciones" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Funcions" Relationship="Self.fk_funcion_oferta1" FromRole="Oferta" ToRole="Funcion" />
+          <NavigationProperty Name="Gestions" Relationship="Self.fk_gestion_oferta1" FromRole="Oferta" ToRole="Gestion" />
+          <NavigationProperty Name="Usuario_Oferta" Relationship="Self.fk_usuario_oferta_oferta1" FromRole="Oferta" ToRole="Usuario_Oferta" />
+        </EntityType>
+        <EntityType Name="Perfil">
+          <Key>
+            <PropertyRef Name="id_perfil" />
+          </Key>
+          <Property Name="id_perfil" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre" Type="String" MaxLength="80" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="email" Type="String" MaxLength="80" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="contrasenia" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Administradors" Relationship="Self.fk_administrador_perfil1" FromRole="Perfil" ToRole="Administrador" />
+          <NavigationProperty Name="Empleadors" Relationship="Self.fk_empleador_perfil1" FromRole="Perfil" ToRole="Empleador" />
+          <NavigationProperty Name="Usuarios" Relationship="Self.fk_usuario_perfil1" FromRole="Perfil" ToRole="Usuario" />
+        </EntityType>
+        <EntityType Name="Usuario">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="telefono" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ciudad" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="genero" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="id_perfil" Type="Int32" Nullable="false" />
+          <Property Name="curriculum_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Curriculum" Relationship="Self.fk_usuario_curriculum1" FromRole="Usuario" ToRole="Curriculum" />
+          <NavigationProperty Name="Perfil" Relationship="Self.fk_usuario_perfil1" FromRole="Usuario" ToRole="Perfil" />
+          <NavigationProperty Name="Usuario_Oferta" Relationship="Self.fk_usuario_oferta_usuario1" FromRole="Usuario" ToRole="Usuario_Oferta" />
+        </EntityType>
+        <EntityType Name="Usuario_Oferta">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="usuario_id" Type="Int32" Nullable="false" />
+          <Property Name="oferta_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Oferta" Relationship="Self.fk_usuario_oferta_oferta1" FromRole="Usuario_Oferta" ToRole="Oferta" />
+          <NavigationProperty Name="Usuario" Relationship="Self.fk_usuario_oferta_usuario1" FromRole="Usuario_Oferta" ToRole="Usuario" />
+        </EntityType>
+        <Association Name="fk_administrador_perfil1">
+          <End Role="Perfil" Type="Self.Perfil" Multiplicity="1" />
+          <End Role="Administrador" Type="Self.Administrador" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Perfil">
+              <PropertyRef Name="id_perfil" />
+            </Principal>
+            <Dependent Role="Administrador">
+              <PropertyRef Name="id_perfil" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_gestion_administrador1">
+          <End Role="Administrador" Type="Self.Administrador" Multiplicity="1" />
+          <End Role="Gestion" Type="Self.Gestion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Administrador">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Gestion">
+              <PropertyRef Name="administrador_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_estudio_curriculum1">
+          <End Role="Curriculum" Type="Self.Curriculum" Multiplicity="1" />
+          <End Role="Estudio" Type="Self.Estudio" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Curriculum">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Estudio">
+              <PropertyRef Name="curriculum_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_experiencia_curriculum1">
+          <End Role="Curriculum" Type="Self.Curriculum" Multiplicity="1" />
+          <End Role="Experiencia" Type="Self.Experiencia" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Curriculum">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Experiencia">
+              <PropertyRef Name="curriculum_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_usuario_curriculum1">
+          <End Role="Curriculum" Type="Self.Curriculum" Multiplicity="1" />
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Curriculum">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Usuario">
+              <PropertyRef Name="curriculum_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_empleador_perfil1">
+          <End Role="Perfil" Type="Self.Perfil" Multiplicity="1" />
+          <End Role="Empleador" Type="Self.Empleador" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Perfil">
+              <PropertyRef Name="id_perfil" />
+            </Principal>
+            <Dependent Role="Empleador">
+              <PropertyRef Name="id_perfil" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_gestion_empleador1">
+          <End Role="Empleador" Type="Self.Empleador" Multiplicity="1" />
+          <End Role="Gestion" Type="Self.Gestion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empleador">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Gestion">
+              <PropertyRef Name="empleador_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_funcion_oferta1">
+          <End Role="Oferta" Type="Self.Oferta" Multiplicity="1" />
+          <End Role="Funcion" Type="Self.Funcion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Oferta">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Funcion">
+              <PropertyRef Name="oferta_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_gestion_oferta1">
+          <End Role="Oferta" Type="Self.Oferta" Multiplicity="1" />
+          <End Role="Gestion" Type="Self.Gestion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Oferta">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Gestion">
+              <PropertyRef Name="oferta_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_usuario_oferta_oferta1">
+          <End Role="Oferta" Type="Self.Oferta" Multiplicity="1" />
+          <End Role="Usuario_Oferta" Type="Self.Usuario_Oferta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Oferta">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Usuario_Oferta">
+              <PropertyRef Name="oferta_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_usuario_perfil1">
+          <End Role="Perfil" Type="Self.Perfil" Multiplicity="1" />
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Perfil">
+              <PropertyRef Name="id_perfil" />
+            </Principal>
+            <Dependent Role="Usuario">
+              <PropertyRef Name="id_perfil" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_usuario_oferta_usuario1">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+          <End Role="Usuario_Oferta" Type="Self.Usuario_Oferta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Usuario_Oferta">
+              <PropertyRef Name="usuario_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="jobfinderEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Administradors" EntityType="Self.Administrador" />
+          <EntitySet Name="Curricula" EntityType="Self.Curriculum" />
+          <EntitySet Name="Empleadors" EntityType="Self.Empleador" />
+          <EntitySet Name="Estudios" EntityType="Self.Estudio" />
+          <EntitySet Name="Experiencias" EntityType="Self.Experiencia" />
+          <EntitySet Name="Funcions" EntityType="Self.Funcion" />
+          <EntitySet Name="Gestions" EntityType="Self.Gestion" />
+          <EntitySet Name="Ofertas" EntityType="Self.Oferta" />
+          <EntitySet Name="Perfils" EntityType="Self.Perfil" />
+          <EntitySet Name="Usuarios" EntityType="Self.Usuario" />
+          <EntitySet Name="Usuario_Oferta" EntityType="Self.Usuario_Oferta" />
+          <AssociationSet Name="fk_administrador_perfil1" Association="Self.fk_administrador_perfil1">
+            <End Role="Perfil" EntitySet="Perfils" />
+            <End Role="Administrador" EntitySet="Administradors" />
+          </AssociationSet>
+          <AssociationSet Name="fk_gestion_administrador1" Association="Self.fk_gestion_administrador1">
+            <End Role="Administrador" EntitySet="Administradors" />
+            <End Role="Gestion" EntitySet="Gestions" />
+          </AssociationSet>
+          <AssociationSet Name="fk_estudio_curriculum1" Association="Self.fk_estudio_curriculum1">
+            <End Role="Curriculum" EntitySet="Curricula" />
+            <End Role="Estudio" EntitySet="Estudios" />
+          </AssociationSet>
+          <AssociationSet Name="fk_experiencia_curriculum1" Association="Self.fk_experiencia_curriculum1">
+            <End Role="Curriculum" EntitySet="Curricula" />
+            <End Role="Experiencia" EntitySet="Experiencias" />
+          </AssociationSet>
+          <AssociationSet Name="fk_usuario_curriculum1" Association="Self.fk_usuario_curriculum1">
+            <End Role="Curriculum" EntitySet="Curricula" />
+            <End Role="Usuario" EntitySet="Usuarios" />
+          </AssociationSet>
+          <AssociationSet Name="fk_empleador_perfil1" Association="Self.fk_empleador_perfil1">
+            <End Role="Perfil" EntitySet="Perfils" />
+            <End Role="Empleador" EntitySet="Empleadors" />
+          </AssociationSet>
+          <AssociationSet Name="fk_gestion_empleador1" Association="Self.fk_gestion_empleador1">
+            <End Role="Empleador" EntitySet="Empleadors" />
+            <End Role="Gestion" EntitySet="Gestions" />
+          </AssociationSet>
+          <AssociationSet Name="fk_funcion_oferta1" Association="Self.fk_funcion_oferta1">
+            <End Role="Oferta" EntitySet="Ofertas" />
+            <End Role="Funcion" EntitySet="Funcions" />
+          </AssociationSet>
+          <AssociationSet Name="fk_gestion_oferta1" Association="Self.fk_gestion_oferta1">
+            <End Role="Oferta" EntitySet="Ofertas" />
+            <End Role="Gestion" EntitySet="Gestions" />
+          </AssociationSet>
+          <AssociationSet Name="fk_usuario_oferta_oferta1" Association="Self.fk_usuario_oferta_oferta1">
+            <End Role="Oferta" EntitySet="Ofertas" />
+            <End Role="Usuario_Oferta" EntitySet="Usuario_Oferta" />
+          </AssociationSet>
+          <AssociationSet Name="fk_usuario_perfil1" Association="Self.fk_usuario_perfil1">
+            <End Role="Perfil" EntitySet="Perfils" />
+            <End Role="Usuario" EntitySet="Usuarios" />
+          </AssociationSet>
+          <AssociationSet Name="fk_usuario_oferta_usuario1" Association="Self.fk_usuario_oferta_usuario1">
+            <End Role="Usuario" EntitySet="Usuarios" />
+            <End Role="Usuario_Oferta" EntitySet="Usuario_Oferta" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="jobfinderModelStoreContainer" CdmEntityContainer="jobfinderEntities">
+          <EntitySetMapping Name="Administradors">
+            <EntityTypeMapping TypeName="jobfinderModel.Administrador">
+              <MappingFragment StoreEntitySet="Administrador">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="id_perfil" ColumnName="id_perfil" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Curricula">
+            <EntityTypeMapping TypeName="jobfinderModel.Curriculum">
+              <MappingFragment StoreEntitySet="Curriculum">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="perfil" ColumnName="perfil" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Empleadors">
+            <EntityTypeMapping TypeName="jobfinderModel.Empleador">
+              <MappingFragment StoreEntitySet="Empleador">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="ciudad" ColumnName="ciudad" />
+                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+                <ScalarProperty Name="actividad" ColumnName="actividad" />
+                <ScalarProperty Name="id_perfil" ColumnName="id_perfil" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Estudios">
+            <EntityTypeMapping TypeName="jobfinderModel.Estudio">
+              <MappingFragment StoreEntitySet="Estudio">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="institucion" ColumnName="institucion" />
+                <ScalarProperty Name="anio" ColumnName="anio" />
+                <ScalarProperty Name="titulo" ColumnName="titulo" />
+                <ScalarProperty Name="curriculum_id" ColumnName="curriculum_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Experiencias">
+            <EntityTypeMapping TypeName="jobfinderModel.Experiencia">
+              <MappingFragment StoreEntitySet="Experiencia">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="empresa" ColumnName="empresa" />
+                <ScalarProperty Name="anios" ColumnName="anios" />
+                <ScalarProperty Name="cargo" ColumnName="cargo" />
+                <ScalarProperty Name="curriculum_id" ColumnName="curriculum_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Funcions">
+            <EntityTypeMapping TypeName="jobfinderModel.Funcion">
+              <MappingFragment StoreEntitySet="Funcion">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+                <ScalarProperty Name="oferta_id" ColumnName="oferta_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Gestions">
+            <EntityTypeMapping TypeName="jobfinderModel.Gestion">
+              <MappingFragment StoreEntitySet="Gestion">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="empleador_id" ColumnName="empleador_id" />
+                <ScalarProperty Name="administrador_id" ColumnName="administrador_id" />
+                <ScalarProperty Name="oferta_id" ColumnName="oferta_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Ofertas">
+            <EntityTypeMapping TypeName="jobfinderModel.Oferta">
+              <MappingFragment StoreEntitySet="Oferta">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="cargo" ColumnName="cargo" />
+                <ScalarProperty Name="anios_experiencia" ColumnName="anios_experiencia" />
+                <ScalarProperty Name="salario" ColumnName="salario" />
+                <ScalarProperty Name="ciudad" ColumnName="ciudad" />
+                <ScalarProperty Name="numero_visualizaciones" ColumnName="numero_visualizaciones" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Perfils">
+            <EntityTypeMapping TypeName="jobfinderModel.Perfil">
+              <MappingFragment StoreEntitySet="Perfil">
+                <ScalarProperty Name="id_perfil" ColumnName="id_perfil" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="contrasenia" ColumnName="contrasenia" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Usuarios">
+            <EntityTypeMapping TypeName="jobfinderModel.Usuario">
+              <MappingFragment StoreEntitySet="Usuario">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="telefono" ColumnName="telefono" />
+                <ScalarProperty Name="ciudad" ColumnName="ciudad" />
+                <ScalarProperty Name="genero" ColumnName="genero" />
+                <ScalarProperty Name="id_perfil" ColumnName="id_perfil" />
+                <ScalarProperty Name="curriculum_id" ColumnName="curriculum_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Usuario_Oferta">
+            <EntityTypeMapping TypeName="jobfinderModel.Usuario_Oferta">
+              <MappingFragment StoreEntitySet="Usuario_Oferta">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="usuario_id" ColumnName="usuario_id" />
+                <ScalarProperty Name="oferta_id" ColumnName="oferta_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
