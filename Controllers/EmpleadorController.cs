@@ -16,12 +16,13 @@ namespace jobfinder_back.Controllers
     {
         public string Post([FromBody] EmpleadorRequest empleadorRequest)
         {
-            //Comentario
+            Cifrar cifrar = new Cifrar();
+
             Perfil perfil = new Perfil();
 
             perfil.email = empleadorRequest.email;
             perfil.nombre = empleadorRequest.nombre;
-            perfil.contrasenia = empleadorRequest.contrasenia;
+            perfil.contrasenia = cifrar.cifrarPassword(empleadorRequest.contrasenia);
 
             clsPerfil _perfil = new clsPerfil();
 

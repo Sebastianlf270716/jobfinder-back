@@ -172,7 +172,7 @@
     <Compile Include="Areas\HelpPage\ModelDescriptions\ParameterAnnotation.cs" />
     <Compile Include="Areas\HelpPage\ModelDescriptions\ParameterDescription.cs" />
     <Compile Include="Areas\HelpPage\ModelDescriptions\SimpleTypeModelDescription.cs" />
-    <Compile Include="Areas\HelpPage\Models\HelpPageApiModel.cs" />
+	  <Compile Include="Areas\HelpPage\Models\HelpPageApiModel.cs" />
     <Compile Include="Areas\HelpPage\SampleGeneration\HelpPageSampleGenerator.cs" />
     <Compile Include="Areas\HelpPage\SampleGeneration\HelpPageSampleKey.cs" />
     <Compile Include="Areas\HelpPage\SampleGeneration\ImageSample.cs" />
@@ -181,7 +181,8 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\SampleDirection.cs" />
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
-    <Compile Include="clases\clsCurriculum.cs" />
+	<Compile Include="clases\Cifrar.cs" />
+	  <Compile Include="clases\clsCurriculum.cs" />
     <Compile Include="clases\clsEmpleador.cs" />
     <Compile Include="clases\clsEstudio.cs" />
     <Compile Include="clases\clsExperiencia.cs" />
