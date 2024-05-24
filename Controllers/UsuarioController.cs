@@ -52,10 +52,11 @@ namespace jobfinder_back.Controllers
             }
 
             Perfil perfil = new Perfil();
+            Cifrar cifrar = new Cifrar();
 
             perfil.email = usuarioRequest.email;
             perfil.nombre = usuarioRequest.nombre;
-            perfil.contrasenia = usuarioRequest.contrasenia;
+            perfil.contrasenia = cifrar.cifrarPassword(usuarioRequest.contrasenia);
 
             clsPerfil _perfil = new clsPerfil();
 

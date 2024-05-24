@@ -11,7 +11,7 @@ namespace jobfinder_back.clases
     {
         public string cifrarPassword(string password) 
         {
-            SHA256 sha256 = new SHA256Managed.Create();
+            SHA256 sha256 = SHA256Managed.Create();
             ASCIIEncoding encoding = new ASCIIEncoding();
             StringBuilder sb = new StringBuilder();
             byte[] bt = sha256.ComputeHash(encoding.GetBytes(password));
