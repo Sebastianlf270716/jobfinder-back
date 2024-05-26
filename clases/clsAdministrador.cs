@@ -14,8 +14,12 @@ namespace jobfinder_back.clases
             Cifrar cifrar = new Cifrar();
             perfil.contrasenia = cifrar.cifrarPassword(perfil.contrasenia);
             Perfil _perfil = jobfinder.Perfils.FirstOrDefault(p => p.email == perfil.email && p.contrasenia == perfil.contrasenia);
+            if (_perfil == null)
+            {
+                return null;
+            }
             Administrador _admin = jobfinder.Administradors.FirstOrDefault(a => a.id_perfil == _perfil.id_perfil);
-            if (_perfil == null || _admin==null)
+            if (_admin==null)
             {
                 return null;
             }
