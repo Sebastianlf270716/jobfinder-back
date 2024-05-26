@@ -12,6 +12,7 @@ using System.Web.Http.Cors;
 namespace jobfinder_back.Controllers
 {
     [EnableCors(origins: "http://localhost:4200", headers: "*", methods: "*")]
+    [RoutePrefix("api/Usuario")]
     public class UsuarioController : ApiController
     {
         public string Post([FromBody] UsuarioRequest usuarioRequest)
@@ -73,6 +74,13 @@ namespace jobfinder_back.Controllers
             clsUsuario _usuario = new clsUsuario();
 
             return _usuario.Insertar(usuario);
+        }
+        [HttpPost]
+        [Route("IniciarSesion")]
+        public IQueryable IniciarSesion([FromBody] Perfil perfil)
+        {
+            clsUsuario usuario = new clsUsuario();
+            return usuario.ConsultarUsuario(perfil);
         }
     }
 }

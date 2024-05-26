@@ -24,5 +24,28 @@ namespace jobfinder_back.clases
                 return ex.Message;
             }
         }
+        public IQueryable ConsultarUsuario(Perfil perfil)
+        {
+            Perfil _perfil = jobfinder.Perfils.FirstOrDefault(p => p.email == perfil.email && p.contrasenia == perfil.contrasenia);
+            if (_perfil == null)
+            {
+                return null;
+            }
+            return from P in jobfinder.Set<Perfil>()
+                   join U in jobfinder.Set<Usuario>()
+                   on P.id_perfil equals U.id_perfil
+                   where P.id_perfil == _perfil.id_perfil
+                   select new
+                   {
+                       id = U.id,
+                       nombre = P.nombre,
+                       email = P.email,
+                       telefono = U.telefono,
+                       ciudad = U.ciudad,
+                       genero = U.genero,
+                       tipo_perfil = "Usuario"
+                   };
+        }
+
     }
 }
