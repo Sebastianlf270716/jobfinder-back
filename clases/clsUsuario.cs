@@ -41,6 +41,8 @@ namespace jobfinder_back.clases
             return from P in jobfinder.Set<Perfil>()
                    join U in jobfinder.Set<Usuario>()
                    on P.id_perfil equals U.id_perfil
+                   join C in jobfinder.Set<Curriculum>()
+                   on U.curriculum_id equals C.id
                    where P.id_perfil == _perfil.id_perfil
                    select new
                    {
@@ -51,6 +53,7 @@ namespace jobfinder_back.clases
                        ciudad = U.ciudad,
                        genero = U.genero,
                        curriculum_id = U.curriculum_id,
+                       perfil = C.perfil,
                        tipo_perfil = "Usuario"
                    };
         }
