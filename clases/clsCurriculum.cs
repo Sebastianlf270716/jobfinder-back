@@ -56,9 +56,9 @@ namespace jobfinder_back.clases
                    where C.id == curriculum.id
                    select new
                    {
-                       institucion = E.empresa,
-                       anio = E.anios,
-                       titulo = E.cargo
+                       empresa = E.empresa,
+                       anios = E.anios,
+                       cargo = E.cargo
                    };
 
         }
