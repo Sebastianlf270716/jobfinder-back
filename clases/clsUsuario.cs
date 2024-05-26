@@ -50,6 +50,7 @@ namespace jobfinder_back.clases
                        telefono = U.telefono,
                        ciudad = U.ciudad,
                        genero = U.genero,
+                       curriculum_id = U.curriculum_id,
                        tipo_perfil = "Usuario"
                    };
         }
