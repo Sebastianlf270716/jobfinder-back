@@ -11,8 +11,11 @@ namespace jobfinder_back.clases
         private jobfinderEntities jobfinder = new jobfinderEntities();
         public IQueryable ConsultarAdministrador(Perfil perfil)
         {
+            Cifrar cifrar = new Cifrar();
+            perfil.contrasenia = cifrar.cifrarPassword(perfil.contrasenia);
             Perfil _perfil = jobfinder.Perfils.FirstOrDefault(p => p.email == perfil.email && p.contrasenia == perfil.contrasenia);
-            if (_perfil == null)
+            Administrador _admin = jobfinder.Administradors.FirstOrDefault(a => a.id_perfil == _perfil.id_perfil);
+            if (_perfil == null || _admin==null)
             {
                 return null;
             }

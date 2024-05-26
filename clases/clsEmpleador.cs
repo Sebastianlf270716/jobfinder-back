@@ -30,8 +30,8 @@ namespace jobfinder_back.clases
             Cifrar cifrar = new Cifrar();
             perfil.contrasenia = cifrar.cifrarPassword(perfil.contrasenia);
             Perfil _perfil = jobfinder.Perfils.FirstOrDefault(p => p.email == perfil.email && p.contrasenia == perfil.contrasenia);
-
-            if (_perfil == null)
+            Empleador _empleador = jobfinder.Empleadors.FirstOrDefault(e => e.id_perfil == _perfil.id_perfil);
+            if (_perfil == null || _empleador==null)
             {
                 return null;
             }
