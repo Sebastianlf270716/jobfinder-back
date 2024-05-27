@@ -187,6 +187,7 @@
     <Compile Include="clases\clsEstudio.cs" />
     <Compile Include="clases\clsExperiencia.cs" />
     <Compile Include="clases\clsFuncion.cs" />
+    <Compile Include="clases\clsGestion.cs" />
     <Compile Include="clases\clsOferta.cs" />
     <Compile Include="clases\clsPerfil.cs" />
     <Compile Include="clases\clsUsuario.cs" />

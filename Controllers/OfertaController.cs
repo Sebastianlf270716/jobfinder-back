@@ -43,6 +43,9 @@ namespace jobfinder_back.Controllers
                 _funcion.Insertar(modelFuncion);
             }
 
+            clsGestion _gestion = new clsGestion();
+            _gestion.Insertar(ofertaRequest.usuario_id, oferta_id, ofertaRequest.tipo_perfil);
+
             return "Se guardó la oferta exitosamente";
         }
     }

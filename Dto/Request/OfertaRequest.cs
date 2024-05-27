@@ -13,6 +13,8 @@ namespace jobfinder_back.Dto.Request
         public string ciudad { get; set; }
         public int anios_experiencia { get; set; }
         public List<string> funciones { get; set; }
+        public int usuario_id { get; set; }
+        public string tipo_perfil {  get; set; }
 
     }
 }
