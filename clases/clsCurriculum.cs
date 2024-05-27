@@ -24,5 +24,43 @@ namespace jobfinder_back.clases
                 throw ex;
             }
         }
+        public IQueryable ConsultarEstudios(int id)
+        {
+            Curriculum curriculum = jobfinder.Curricula.Find(id);
+            if (curriculum == null)
+            {
+                return null;
+            }
+            return from C in jobfinder.Set<Curriculum>()
+                   join E in jobfinder.Set<Estudio>()
+                   on C.id equals E.curriculum_id
+                   where C.id == curriculum.id
+                   select new
+                   {
+                       institucion = E.institucion,
+                       anio = E.anio,
+                       titulo = E.titulo
+                   };
+
+        }
+        public IQueryable ConsultarExperiencias(int id)
+        {
+            Curriculum curriculum = jobfinder.Curricula.Find(id);
+            if (curriculum == null)
+            {
+                return null;
+            }
+            return from C in jobfinder.Set<Curriculum>()
+                   join E in jobfinder.Set<Experiencia>()
+                   on C.id equals E.curriculum_id
+                   where C.id == curriculum.id
+                   select new
+                   {
+                       empresa = E.empresa,
+                       anios = E.anios,
+                       cargo = E.cargo
+                   };
+
+        }
     }
 }
