@@ -24,6 +24,49 @@ namespace jobfinder_back.clases
                 return ex.Message;
             }
         }
+        public string Eliminar(int id)
+        {
+            try
+            {
+                Usuario usuario = jobfinder.Usuarios.FirstOrDefault(u => u.id==id);
+                if (usuario==null)
+                {
+                    return null;
+                }
+                Curriculum curriculum = jobfinder.Curricula.FirstOrDefault(c => c.id == usuario.curriculum_id);
+                jobfinder.Usuarios.Remove(usuario);
+                jobfinder.SaveChanges();
+                List<Estudio> estudios = jobfinder.Estudios.Where(e => e.curriculum_id == curriculum.id).ToList();
+                if (estudios!= null)
+                {
+                    jobfinder.Estudios.RemoveRange(estudios);
+                    jobfinder.SaveChanges();
+                }
+
+                List<Experiencia> experiencias = jobfinder.Experiencias.Where(e => e.curriculum_id == curriculum.id).ToList();
+                if (experiencias != null)
+                {
+                    jobfinder.Experiencias.RemoveRange(experiencias);
+                    jobfinder.SaveChanges();
+                }
+
+                jobfinder.Curricula.Remove(curriculum);
+                jobfinder.SaveChanges();
+                
+
+                Perfil perfil = jobfinder.Perfils.FirstOrDefault(p => p.id_perfil==usuario.id_perfil);
+                if (perfil != null)
+                {
+                    jobfinder.Perfils.Remove(perfil);
+                    jobfinder.SaveChanges();
+                }
+                return "Usuario eliminado con éxito";
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
+        }
         public IQueryable ConsultarUsuario(Perfil perfil)
         {
             Cifrar cifrar = new Cifrar();

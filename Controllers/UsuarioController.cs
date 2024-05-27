@@ -75,6 +75,13 @@ namespace jobfinder_back.Controllers
 
             return _usuario.Insertar(usuario);
         }
+
+        public string Delete(int id)
+        {
+            clsUsuario _usuario = new clsUsuario();
+            return _usuario.Eliminar(id);
+        }
+
         [HttpPost]
         [Route("IniciarSesion")]
         public IQueryable IniciarSesion([FromBody] Perfil perfil)
