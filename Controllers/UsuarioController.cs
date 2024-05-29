@@ -89,5 +89,11 @@ namespace jobfinder_back.Controllers
             clsUsuario usuario = new clsUsuario();
             return usuario.ConsultarUsuario(perfil);
         }
+
+        public string Put([FromBody] UsuarioRequest usuarioRequest)
+        {
+            clsUsuario _usuario = new clsUsuario();
+            return _usuario.Actualizar(usuarioRequest);
+        }
     }
 }

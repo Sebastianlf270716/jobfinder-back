@@ -7,6 +7,7 @@ namespace jobfinder_back.Dto.Request
 {
     public class UsuarioRequest
     {
+        public int id {  get; set; }
         public String nombre { get; set; }
         public String telefono { get; set; }
         public String ciudad { get; set; }
@@ -14,6 +15,7 @@ namespace jobfinder_back.Dto.Request
         public String contrasenia { get; set; }
         public String genero { get; set; }
         public String perfil { get; set; }
+        public int curriculum_id { get; set; }
         public CurriculumRequest curriculum { get; set; }
 
 
