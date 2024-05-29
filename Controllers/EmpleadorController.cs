@@ -47,5 +47,10 @@ namespace jobfinder_back.Controllers
             clsEmpleador empleador = new clsEmpleador();
             return empleador.ConsultarEmpleador(perfil);
         }
+        public string Delete(int id)
+        {
+            clsEmpleador _empleador = new clsEmpleador();
+            return _empleador.Eliminar(id);
+        }
     }
 }
