@@ -1,5 +1,6 @@
 ﻿using jobfinder_back.clases;
 using jobfinder_back.Dto.Request;
+using jobfinder_back.Dto.Response;
 using jobfinder_back.Models;
 using System;
 using System.Collections.Generic;
@@ -65,6 +66,74 @@ namespace jobfinder_back.Controllers
             clsOferta _oferta = new clsOferta();
 
             return _oferta.obtenerOfertasAdministrador();
+        }
+
+        [HttpGet]
+        [Route("Obtener")]
+        public OfertaResponse getOferta(int id)
+        {
+            clsOferta _oferta = new clsOferta();
+            Oferta oferta = _oferta.GetOferta(id);
+
+            clsFuncion _funcion = new clsFuncion();
+            IQueryable funciones = _funcion.obtenerFuncionesOferta(id);
+
+            OfertaResponse ofertaResponse = new OfertaResponse();
+
+            ofertaResponse.id = oferta.id;
+            ofertaResponse.nombre = oferta.nombre;
+            ofertaResponse.cargo = oferta.cargo;
+            ofertaResponse.ciudad = oferta.ciudad;
+            ofertaResponse.salario = oferta.salario;
+            ofertaResponse.anios_experiencia = oferta.anios_experiencia;
+            ofertaResponse.funciones = funciones;
+
+
+            return ofertaResponse;
+        }
+
+        [HttpPost]
+        [Route("Actualizar")]
+        public string ActualizarOferta([FromBody] OfertaRequest ofertaRequest)
+        {
+            Oferta oferta = new Oferta();
+
+            oferta.id = (int)ofertaRequest.id;
+            oferta.nombre = ofertaRequest.nombre;
+            oferta.cargo = ofertaRequest.cargo;
+            oferta.salario = ofertaRequest.salario;
+            oferta.ciudad = ofertaRequest.ciudad;
+            oferta.anios_experiencia = ofertaRequest.anios_experiencia;
+
+            clsOferta _oferta = new clsOferta();
+
+            foreach (string ofertaFuncion in ofertaRequest.funciones)
+            {
+                Funcion modelFuncion = new Funcion();
+
+                modelFuncion.descripcion = ofertaFuncion;
+                modelFuncion.oferta_id = oferta.id;
+
+                clsFuncion _funcion = new clsFuncion();
+
+                _funcion.Actualizar(modelFuncion);
+            }
+
+            return _oferta.ActualizarOferta(oferta);
+        }
+
+        [HttpDelete]
+        [Route("Eliminar")]
+        public void eliminarOferta(int id)
+        {
+            clsFuncion _funcion = new clsFuncion();
+            _funcion.eliminarFuncionesOferta(id);
+
+            clsGestion _gestion = new clsGestion();
+            _gestion.eliminarGestion(id);
+
+            clsOferta _oferta = new clsOferta();
+            _oferta.EliminarOferta(id);            
         }
     }
 }

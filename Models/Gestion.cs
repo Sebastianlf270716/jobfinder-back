@@ -9,6 +9,7 @@
 
 namespace jobfinder_back.Models
 {
+    using Newtonsoft.Json;
     using System;
     using System.Collections.Generic;
     
@@ -18,9 +19,12 @@ namespace jobfinder_back.Models
         public int empleador_id { get; set; }
         public int administrador_id { get; set; }
         public int oferta_id { get; set; }
-    
+
+        [JsonIgnore]
         public virtual Administrador Administrador { get; set; }
+        [JsonIgnore]
         public virtual Empleador Empleador { get; set; }
+        [JsonIgnore]
         public virtual Oferta Oferta { get; set; }
     }
 }

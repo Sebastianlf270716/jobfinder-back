@@ -29,5 +29,12 @@ namespace jobfinder_back.clases
                 throw ex;
             }
         }
+
+        public void eliminarGestion(int id_oferta)
+        {
+            var gestiones = jobfinder.Gestions.Where(g => g.oferta_id == id_oferta);
+            jobfinder.Gestions.RemoveRange(gestiones);
+            jobfinder.SaveChanges();
+        }
     }
 }
