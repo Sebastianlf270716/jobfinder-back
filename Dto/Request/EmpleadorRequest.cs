@@ -7,6 +7,7 @@ namespace jobfinder_back.Dto.Request
 {
     public class EmpleadorRequest
     {
+        public int id { get; set; }
         public string nombre { get; set; }
         public string ciudad { get; set; } 
         public string actividad { get; set; }

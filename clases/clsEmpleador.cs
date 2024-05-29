@@ -4,6 +4,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using jobfinder_back.Dto.Request;
+using System.Data.Entity.Migrations;
 
 namespace jobfinder_back.clases
 {    
@@ -95,6 +97,33 @@ namespace jobfinder_back.clases
                 jobfinder.Perfils.Remove(perfil);
                 jobfinder.SaveChanges();
                 return "Perfil eliminado exitosamente";
+            }
+            catch (Exception ex)
+            {
+
+                return ex.Message;
+            }
+        }
+
+        public string Actualizar(EmpleadorRequest empleador)
+        {
+            try
+            {
+                Empleador _empleador = jobfinder.Empleadors.FirstOrDefault(e => e.id == empleador.id);
+                _empleador.ciudad = empleador.ciudad;
+                _empleador.actividad = empleador.actividad;
+                _empleador.descripcion = empleador.descripcion;
+
+                jobfinder.Empleadors.AddOrUpdate(_empleador);
+                jobfinder.SaveChanges();
+
+                Perfil _perfil = jobfinder.Perfils.FirstOrDefault(p => p.id_perfil == _empleador.id_perfil);
+                _perfil.nombre = empleador.nombre;
+
+                jobfinder.Perfils.AddOrUpdate(_perfil);
+                jobfinder.SaveChanges();
+
+                return "Se actualizaron los datos correctamente";
             }
             catch (Exception ex)
             {
