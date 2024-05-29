@@ -48,5 +48,23 @@ namespace jobfinder_back.Controllers
 
             return "Se guardó la oferta exitosamente";
         }
+
+        [HttpGet]
+        [Route("OfertasEmpleador")]
+        public IQueryable obtenerOfertasEmpleador(int id_empleador)
+        {
+           clsOferta _oferta = new clsOferta();
+            
+            return _oferta.obtenerOfertasEmpleador(id_empleador);
+        }
+
+        [HttpGet]
+        [Route("OfertasAdministrador")]
+        public IQueryable obtenerOfertasAdministrador()
+        {
+            clsOferta _oferta = new clsOferta();
+
+            return _oferta.obtenerOfertasAdministrador();
+        }
     }
 }
