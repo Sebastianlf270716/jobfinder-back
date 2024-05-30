@@ -156,5 +156,13 @@ namespace jobfinder_back.Controllers
             return oferta.RegistrarCandidato(usuario_id, oferta_id);
         }
 
+        [HttpPost]
+        [Route("ConsultarCandidatos")]
+        public List<int> ConsultarCandidatos(List<Oferta> ofertas)
+        {
+            clsOferta oferta = new clsOferta();
+            return oferta.ConsultarCandidatos(ofertas);
+        }
+
     }
 }

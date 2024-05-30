@@ -116,7 +116,7 @@ namespace jobfinder_back.clases
                     ofertaResponse.cargo = oferta.cargo;
                     ofertaResponse.anios_experiencia = oferta.anios_experiencia;
                     ofertaResponse.ciudad = oferta.ciudad;
-                    ofertaResponse.ciudad = oferta.ciudad;
+                    ofertaResponse.salario = oferta.salario;
                     ofertaResponse.numero_visualizaciones = oferta.numero_visualizaciones;
                     List<Funcion> funciones = jobfinder.Funcions.Where(f => f.oferta_id == oferta.id).ToList();
                     ofertaResponse.funciones = funciones;
@@ -173,6 +173,18 @@ namespace jobfinder_back.clases
                 throw ex;
             }
         }
+
+        public List<int> ConsultarCandidatos(List<Oferta> ofertas)
+        {
+            List<int> candidatos = new List<int>();
+            foreach (var oferta in ofertas)
+            {
+                List<Usuario_Oferta> usuario_Ofertas = jobfinder.Usuario_Oferta.Where(uo => uo.oferta_id==oferta.id).ToList();
+                candidatos.Add(usuario_Ofertas.Count);
+            }
+            return candidatos;
+        }
+
     }
 
     public class RespuestaOferta
@@ -189,4 +201,5 @@ namespace jobfinder_back.clases
 
 
     }
+
 }
