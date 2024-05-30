@@ -66,5 +66,26 @@ namespace jobfinder_back.Controllers
 
             return _oferta.obtenerOfertasAdministrador();
         }
+
+        public List<OfertaResponse> Get()
+        {
+            clsOferta _oferta = new clsOferta();
+            return _oferta.consultarTodas();
+        }
+        [HttpGet]
+        [Route("RegistrarVisita")]
+        public void RegistrarVisita(int id)
+        {
+            clsOferta oferta = new clsOferta();
+            oferta.RegistrarVisita(id);
+        }
+
+        [HttpGet]
+        [Route("RegistrarCandidato")]
+        public string RegistrarCandidato(int usuario_id, int oferta_id)
+        {
+            clsOferta oferta = new clsOferta();
+            return oferta.RegistrarCandidato(usuario_id, oferta_id);
+        }
     }
 }
