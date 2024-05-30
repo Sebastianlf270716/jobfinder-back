@@ -6,7 +6,8 @@ using System.Web;
 namespace jobfinder_back.Dto.Request
 {
     public class OfertaRequest
-    {
+    {   
+        public int? id {  get; set; }
         public string nombre { get; set; }
         public string cargo { get; set; }
         public decimal salario { get; set; }

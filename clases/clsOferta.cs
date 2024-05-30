@@ -35,6 +35,7 @@ namespace jobfinder_back.clases
                    where G.empleador_id == id_empleador
                    select new
                    {
+                       id = O.id,
                        nombre = O.nombre,
                        ciudad = O.ciudad,
                        salario = O.salario
@@ -48,23 +49,67 @@ namespace jobfinder_back.clases
                    on O.id equals G.oferta_id
                    select new
                    {
+                       id = O.id,
                        nombre = O.nombre,
                        ciudad = O.ciudad,
                        salario = O.salario
                    };
         }
 
-        public List<OfertaResponse> consultarTodas()
+        public Oferta GetOferta(int id)
+        {
+            try
+            {
+                Oferta oferta = jobfinder.Ofertas.Find(id);
+
+                return oferta;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public string ActualizarOferta(Oferta oferta)
+        {
+            try
+            {
+                jobfinder.Ofertas.AddOrUpdate(oferta);
+                jobfinder.SaveChanges();
+                return "Se modificó la oferta correctamente";
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
+            
+        }
+
+        public void EliminarOferta(int id)
+        {
+            try
+            {
+                Oferta oferta = jobfinder.Ofertas.Find(id);
+                jobfinder.Ofertas.Remove(oferta);
+                jobfinder.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+        }
+        public List<RespuestaOferta> consultarTodas()
         {
             try
             {
                 List<Oferta> ofertas = jobfinder.Ofertas.ToList();
-                List<OfertaResponse> ofertaResponses = new List<OfertaResponse>();
+                List<RespuestaOferta> ofertaResponses = new List<RespuestaOferta>();
                 foreach (var oferta in ofertas)
                 {
                     Gestion gestion = jobfinder.Gestions.FirstOrDefault(g => g.oferta_id == oferta.id);
 
-                    OfertaResponse ofertaResponse = new OfertaResponse();
+                    RespuestaOferta ofertaResponse = new RespuestaOferta();
                     ofertaResponse.id = oferta.id;
                     ofertaResponse.empresa = jobfinder.Perfils.Find(jobfinder.Empleadors.Find(gestion.empleador_id).id_perfil).nombre;
                     ofertaResponse.nombre = oferta.nombre;
@@ -107,7 +152,7 @@ namespace jobfinder_back.clases
         {
             try
             {
-                if (jobfinder.Usuario_Oferta.FirstOrDefault(e => e.oferta_id==idOferta && e.usuario_id == idUsuario)==null)
+                if (jobfinder.Usuario_Oferta.FirstOrDefault(e => e.oferta_id == idOferta && e.usuario_id == idUsuario) == null)
                 {
                     Usuario_Oferta usuario_Oferta = new Usuario_Oferta();
                     usuario_Oferta.oferta_id = idOferta;
@@ -130,7 +175,7 @@ namespace jobfinder_back.clases
         }
     }
 
-    public class OfertaResponse
+    public class RespuestaOferta
     {
         public int id;
         public string empresa;
