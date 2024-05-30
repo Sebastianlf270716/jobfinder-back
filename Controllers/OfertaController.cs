@@ -135,13 +135,26 @@ namespace jobfinder_back.Controllers
             clsOferta _oferta = new clsOferta();
             _oferta.EliminarOferta(id);            
         }
-
-        [HttpGet]
-        [Route("EstadisticaOferta")]
-        public ReporteOferta estadisticasOferta(int id)
+        public List<RespuestaOferta> Get()
         {
             clsOferta _oferta = new clsOferta();
-            return _oferta.estadisticaOferta(id);
+            return _oferta.consultarTodas();
         }
+        [HttpGet]
+        [Route("RegistrarVisita")]
+        public void RegistrarVisita(int id)
+        {
+            clsOferta oferta = new clsOferta();
+            oferta.RegistrarVisita(id);
+        }
+
+        [HttpGet]
+        [Route("RegistrarCandidato")]
+        public string RegistrarCandidato(int usuario_id, int oferta_id)
+        {
+            clsOferta oferta = new clsOferta();
+            return oferta.RegistrarCandidato(usuario_id, oferta_id);
+        }
+
     }
 }

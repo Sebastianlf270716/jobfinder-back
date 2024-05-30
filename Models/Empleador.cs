@@ -9,6 +9,7 @@
 
 namespace jobfinder_back.Models
 {
+    using Newtonsoft.Json;
     using System;
     using System.Collections.Generic;
     
@@ -25,9 +26,11 @@ namespace jobfinder_back.Models
         public string descripcion { get; set; }
         public string actividad { get; set; }
         public int id_perfil { get; set; }
-    
+
+        [JsonIgnore]
         public virtual Perfil Perfil { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        [JsonIgnore]
         public virtual ICollection<Gestion> Gestions { get; set; }
     }
 }

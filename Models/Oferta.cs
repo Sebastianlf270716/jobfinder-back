@@ -30,7 +30,8 @@ namespace jobfinder_back.Models
         public decimal salario { get; set; }
         public string ciudad { get; set; }
         public int numero_visualizaciones { get; set; }
-    
+
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         [JsonIgnore]
         public virtual ICollection<Funcion> Funcions { get; set; }
