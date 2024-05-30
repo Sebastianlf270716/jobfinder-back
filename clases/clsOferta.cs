@@ -1,7 +1,9 @@
-﻿using jobfinder_back.Models;
+﻿using jobfinder_back.Dto.Response;
+using jobfinder_back.Models;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity.Migrations;
+using System.Diagnostics;
 using System.Linq;
 using System.Security.Policy;
 using System.Web;
@@ -198,6 +200,55 @@ namespace jobfinder_back.clases
         public string ciudad;
         public int numero_visualizaciones;
         public List<Funcion> funciones;
+
+        public ReporteOferta estadisticaOferta(int id)
+        {
+            Oferta oferta = new Oferta();
+            ReporteOferta reporteOferta = new ReporteOferta();
+
+            oferta = jobfinder.Ofertas.Find(id);
+
+            reporteOferta.nombre = oferta.nombre;
+
+            var candidatos = jobfinder.Usuario_Oferta.Where(c => c.oferta_id == id);
+
+            reporteOferta.candidatos = candidatos.Count();
+
+            int masculino = 0;
+            int femenino = 0;
+            int otro = 0;
+
+            foreach (var candidato in candidatos)
+            {
+                Usuario usuario = jobfinder.Usuarios.Find(candidato.usuario_id);
+
+                switch (usuario.genero)
+                {
+                    case "Masculino":
+                        masculino++;
+                        break;
+                    case "Femenino":
+                        femenino++;
+                        break;
+                    case "Otro":
+                        otro++;
+                        break;
+                    default:
+                        break;
+                }
+
+            }
+
+            reporteOferta.visualizaciones = oferta.numero_visualizaciones;
+            reporteOferta.masculino = masculino;
+            reporteOferta.femenino = femenino;
+            reporteOferta.otro = otro;
+
+            reporteOferta.pVsV = (reporteOferta.candidatos / reporteOferta.visualizaciones) * 100;
+
+            return reporteOferta;
+
+        }
 
 
     }
