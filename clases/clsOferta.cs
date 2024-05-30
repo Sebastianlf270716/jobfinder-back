@@ -118,7 +118,7 @@ namespace jobfinder_back.clases
                     ofertaResponse.cargo = oferta.cargo;
                     ofertaResponse.anios_experiencia = oferta.anios_experiencia;
                     ofertaResponse.ciudad = oferta.ciudad;
-                    ofertaResponse.ciudad = oferta.ciudad;
+                    ofertaResponse.salario = oferta.salario;
                     ofertaResponse.numero_visualizaciones = oferta.numero_visualizaciones;
                     List<Funcion> funciones = jobfinder.Funcions.Where(f => f.oferta_id == oferta.id).ToList();
                     ofertaResponse.funciones = funciones;
@@ -175,19 +175,6 @@ namespace jobfinder_back.clases
                 throw ex;
             }
         }
-    }
-
-    public class RespuestaOferta
-    {
-        public int id;
-        public string empresa;
-        public string nombre;
-        public string cargo;
-        public int anios_experiencia;
-        public decimal salario;
-        public string ciudad;
-        public int numero_visualizaciones;
-        public List<Funcion> funciones;
 
         public ReporteOferta estadisticaOferta(int id)
         {
@@ -232,12 +219,25 @@ namespace jobfinder_back.clases
             reporteOferta.femenino = femenino;
             reporteOferta.otro = otro;
 
-            reporteOferta.pVsV = (reporteOferta.candidatos / reporteOferta.visualizaciones) * 100;
+            reporteOferta.pVsV = Math.Round(((decimal)reporteOferta.candidatos / (decimal)reporteOferta.visualizaciones) * 100, 2);
 
             return reporteOferta;
 
         }
 
+    }
+
+    public class RespuestaOferta
+    {
+        public int id;
+        public string empresa;
+        public string nombre;
+        public string cargo;
+        public int anios_experiencia;
+        public decimal salario;
+        public string ciudad;
+        public int numero_visualizaciones;
+        public List<Funcion> funciones;
 
     }
 }

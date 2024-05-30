@@ -193,6 +193,7 @@
     <Compile Include="clases\clsPerfil.cs" />
     <Compile Include="clases\clsUsuario.cs" />
     <Compile Include="Controllers\AdministradorController.cs" />
+    <Compile Include="Controllers\CurriculumController.cs" />
     <Compile Include="Controllers\EmpleadorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\OfertaController.cs" />

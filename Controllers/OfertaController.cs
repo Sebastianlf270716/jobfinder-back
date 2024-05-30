@@ -156,5 +156,13 @@ namespace jobfinder_back.Controllers
             return oferta.RegistrarCandidato(usuario_id, oferta_id);
         }
 
+        [HttpGet]
+        [Route("EstadisticaOferta")]
+        public ReporteOferta estadisticasOferta(int id)
+        {
+            clsOferta _oferta = new clsOferta();
+            return _oferta.estadisticaOferta(id);
+        }
+
     }
 }
