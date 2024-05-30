@@ -187,20 +187,6 @@ namespace jobfinder_back.clases
             return candidatos;
         }
 
-    }
-
-    public class RespuestaOferta
-    {
-        public int id;
-        public string empresa;
-        public string nombre;
-        public string cargo;
-        public int anios_experiencia;
-        public decimal salario;
-        public string ciudad;
-        public int numero_visualizaciones;
-        public List<Funcion> funciones;
-
         public ReporteOferta estadisticaOferta(int id)
         {
             Oferta oferta = new Oferta();
