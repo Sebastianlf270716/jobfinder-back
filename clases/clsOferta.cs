@@ -176,6 +176,31 @@ namespace jobfinder_back.clases
             }
         }
 
+        public List<int> ConsultarCandidatos(List<Oferta> ofertas)
+        {
+            List<int> candidatos = new List<int>();
+            foreach (var oferta in ofertas)
+            {
+                List<Usuario_Oferta> usuario_Ofertas = jobfinder.Usuario_Oferta.Where(uo => uo.oferta_id==oferta.id).ToList();
+                candidatos.Add(usuario_Ofertas.Count);
+            }
+            return candidatos;
+        }
+
+    }
+
+    public class RespuestaOferta
+    {
+        public int id;
+        public string empresa;
+        public string nombre;
+        public string cargo;
+        public int anios_experiencia;
+        public decimal salario;
+        public string ciudad;
+        public int numero_visualizaciones;
+        public List<Funcion> funciones;
+
         public ReporteOferta estadisticaOferta(int id)
         {
             Oferta oferta = new Oferta();
@@ -240,4 +265,5 @@ namespace jobfinder_back.clases
         public List<Funcion> funciones;
 
     }
+
 }
