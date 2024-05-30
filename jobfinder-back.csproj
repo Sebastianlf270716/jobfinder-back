@@ -205,6 +205,7 @@
     <Compile Include="Dto\Request\OfertaRequest.cs" />
     <Compile Include="Dto\Request\UsuarioRequest.cs" />
     <Compile Include="Dto\Response\OfertaResponse.cs" />
+    <Compile Include="Dto\Response\ReporteOferta.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
